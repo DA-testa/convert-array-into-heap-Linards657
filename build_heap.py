@@ -20,24 +20,22 @@ def build_heap(data, n):
         try:
             if data[i - 1] < data[i // 2 - 1]:
                 swaps.append((i // 2 - 1, i-1))
-                data_save.append((data[i // 2 - 1], data[i-1]))
-                data[i // 2 - 1] = data_save[-1][1]
-                data[i-1] = data_save[-1][0]
+                data_save.append(data[i // 2 - 1])
+                data[i // 2 - 1] = data[i-1]
+                data[i-1] = data_save.pop()
                 steps = steps + i
                 i = i // 2
-                print("!!!")
                 continue
         except IndexError:
             pass
         try:
             if data[i - 2] < data[i // 2 - 1]:
                 swaps.append((i // 2 - 1, i - 2))
-                data_save.append((data[i // 2 - 1], data[i - 2]))
-                data[i // 2 - 1] = data_save[-1][1]
-                data[i - 2] = data_save[-1][0]
+                data_save.append(data[i // 2 - 1])
+                data[i // 2 - 1] = data[i - 2]
+                data[i - 2] = data_save.pop()
                 steps = steps + i
                 i = i // 2
-                print("???")
                 continue
         except IndexError:
             pass
@@ -54,14 +52,14 @@ def main():
 
     # input from keyboard
     text = input()
-    
+
     if "I" in text[:1]:
         n = int(input())
         data = list(map(int, input().split()))
     else:
         text = input()
-        f = open("./tests/" + text, "r")
-        n = f.readline()
+        f = open("./test/" + text, "r")
+        n = int(f.readline())
         data = list(map(int, f.readline().split()))
         f.close()
 
@@ -84,4 +82,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
