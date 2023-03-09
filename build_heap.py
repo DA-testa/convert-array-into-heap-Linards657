@@ -58,7 +58,7 @@ def main():
         data = list(map(int, input().split()))
     else:
         text = input()
-        f = open("./test/" + text, "r")
+        f = open("./tests/" + text, "r")
         n = int(f.readline())
         data = list(map(int, f.readline().split()))
         f.close()
