@@ -9,7 +9,7 @@ def build_heap(data, n):
     i = 2 ** (levels + 1) - 1
     # TODO: Create heap and heap sort
 
-    while i >= 1:
+    while i >= 0:
         if i < 2:
             if steps < 1:
                 break
