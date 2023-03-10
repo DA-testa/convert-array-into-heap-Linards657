@@ -1,6 +1,5 @@
 # python3
 import math
-import numpy as np
 
 
 def build_heap(data, n):
@@ -57,12 +56,12 @@ def main():
 
     if "I" in text[:1]:
         n = int(input())
-        data = np.asarray(list(map(int, input().split())))
+        data = list(map(int, input().split()))
     else:
         text = input()
         f = open("./tests/" + text, "r")
         n = int(f.readline())
-        data = np.asarray(list(map(int, f.readline().split())))
+        data = list(map(int, f.readline().split()))
         f.close()
 
     # checks if length of data is the same as the said length
