@@ -1,16 +1,16 @@
 # python3
 import math
+import numpy as np
 
 
 def build_heap(data, n):
     swaps = []
-    data_save = []
     steps = 0
     levels = math.floor(math.log2(n + 1))
     i = 2 ** (levels + 1) - 1
     # TODO: Create heap and heap sort
 
-    while i >= -20:
+    while i >= 1:
         if i < 2:
             if steps < 1:
                 break
@@ -20,10 +20,11 @@ def build_heap(data, n):
         try:
             if data[i - 1] < data[i // 2 - 1]:
                 swaps.append((i // 2 - 1, i-1))
-                data_save.append(data[i // 2 - 1])
+                data_save = data[i // 2 - 1]
                 data[i // 2 - 1] = data[i-1]
-                data[i-1] = data_save.pop()
-                steps = steps + i
+                data[i-1] = data_save
+                if i > steps:
+                    steps = i
                 i = i // 2
                 continue
         except IndexError:
@@ -31,10 +32,11 @@ def build_heap(data, n):
         try:
             if data[i - 2] < data[i // 2 - 1]:
                 swaps.append((i // 2 - 1, i - 2))
-                data_save.append(data[i // 2 - 1])
+                data_save = data[i // 2 - 1]
                 data[i // 2 - 1] = data[i - 2]
-                data[i - 2] = data_save.pop()
-                steps = steps + i
+                data[i - 2] = data_save
+                if i > steps:
+                    steps = i
                 i = i // 2
                 continue
         except IndexError:
@@ -55,12 +57,12 @@ def main():
 
     if "I" in text[:1]:
         n = int(input())
-        data = list(map(int, input().split()))
+        data = np.asarray(list(map(int, input().split())))
     else:
         text = input()
         f = open("./tests/" + text, "r")
         n = int(f.readline())
-        data = list(map(int, f.readline().split()))
+        data = np.asarray(list(map(int, f.readline().split())))
         f.close()
 
     # checks if length of data is the same as the said length
