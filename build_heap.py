@@ -1,48 +1,30 @@
 # python3
-import math
 
 
 def build_heap(data, n):
     swaps = []
     steps = 0
-    levels = math.floor(math.log2(n + 1))
-    i = 2 ** (levels + 1) - 1
+    i = n // 2 - 1
     # TODO: Create heap and heap sort
-
     while i >= 0:
-        if i < 2:
-            if steps < 1:
-                break
+        try:
+            if data[2 * i + 1] < data[2 * i + 2]:
+                salidzinama_adrese = 2 * i + 1
             else:
-                i = steps - 1
-                steps = 0
-        try:
-            if data[i - 1] < data[i // 2 - 1]:
-                swaps.append((i // 2 - 1, i-1))
-                data_save = data[i // 2 - 1]
-                data[i // 2 - 1] = data[i-1]
-                data[i-1] = data_save
-                if i > steps:
-                    steps = i
-                i = i // 2
-                continue
+                salidzinama_adrese = 2 * i + 2
         except IndexError:
-            pass
-        try:
-            if data[i - 2] < data[i // 2 - 1]:
-                swaps.append((i // 2 - 1, i - 2))
-                data_save = data[i // 2 - 1]
-                data[i // 2 - 1] = data[i - 2]
-                data[i - 2] = data_save
-                if i > steps:
-                    steps = i
-                i = i // 2
-                continue
-        except IndexError:
-            pass
-        i = i - 2
-    # try to achieve  O(n) and not O(n2)
-
+            i = i - 1
+            continue
+        if data[salidzinama_adrese] < data[i]:
+            data[i], data[salidzinama_adrese] = data[salidzinama_adrese], data[i]
+            swaps.append((i, salidzinama_adrese))
+            if i > steps:
+                steps = i
+        if i == 0 and steps != 0:
+            i = steps
+            steps = 0
+            continue
+        i = i - 1
     return swaps
 
 
